@@ -7,6 +7,15 @@ This example is a _weird_ Rails application using `rails 6` and the [_asset pipe
 - `docker-compose.yml`
 - `.env.example`
 
+## Requirements
+
+As you probably imagined, there are **only 2 requirements to run this application**:
+
+- `Docker`
+- `Compose`
+
+And that's it! _Neat_, right? 💖
+
 ## Startup Workflow
 
 I'll assume that your terminal is inside the `example` folder, on the root of the Rails app. To be able to run the application, the workflow will work something like this:
