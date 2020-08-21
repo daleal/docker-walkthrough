@@ -1,0 +1,27 @@
+name: deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log in to Heroku Container Registry
+        run: heroku container:login
+
+      - name: Build and push
+        run: heroku container:push -a ${{ secrets.APP_NAME }} web
+
+      - name: Release the image
+        run: heroku container:release -a ${{ secrets.APP_NAME }} web
+
+      - name: Migrate the database
+        run: heroku run -a ${{ secrets.APP_NAME }} rails db:migrate

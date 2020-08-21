@@ -1,0 +1,63 @@
+# Declare the Compose version
+version: '3.7'
+
+# Declare the Services
+services:
+  db:  # Database service
+       # We are not building this Container Image,
+       # so we declare the Container Image's name
+       # and version
+    image: postgres:12.3  # We are not building this Container Image,
+                          # so we declare the Container Image's name
+                          # and version to be pulled from the internet
+
+    volumes:  # Create a Volume to persist data
+      - data:/var/lib/postgresql/data
+
+    environment:  # Inject environmental variables to the container
+                  # directly from the Compose file
+      POSTGRES_HOST_AUTH_METHOD: trust  # Insecure connection, only for local,
+                                        # this environmental variable is
+                                        # necessary because we are no changing
+                                        # the defaul postgres password,
+                                        # which is insecure in production
+
+    networks:  # Attach the service to one or multiple networks
+      - backend
+
+  web:  # Rails service
+    build: .  # Use the files on the same folder as this file to
+              # build the Container Image (Compose automagically)
+              # searches for the Dockerfile if not specified
+
+    volumes:  # Create a volume in the same folder as this file
+              # to avoid having to build the Container Image
+              # every time that the code changes
+      - .:/usr/src/app
+
+    ports:  # Route the traffic of the port 3000 of the host
+            # to the port 3000 of the container
+      - "3000:3000"
+
+    environment:  # Inject environmental variables to the container
+                  # directly from the Compose file
+      RAILS_ENV: development
+
+    env_file: .env  # Inject environmental variables defined inside the
+                    # file .env
+
+    depends_on:  # Every time that this service is started, start
+                 # the service db before it
+      - db
+
+    networks:  # Attach the service to one or multiple networks
+      - backend
+
+# Declare the Volumes
+volumes:
+  data:
+    driver: local
+
+# Declare the Networks
+networks:
+  backend:
