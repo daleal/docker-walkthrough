@@ -40,7 +40,7 @@ While declaring Networks using Compose is quite easy (as you will see in a bit),
 
 That means that, for example, if you have a container with the service name `db` listening to the port `5432`, you can access that database from another container attached to the same Network as `db` by querying `http://db:5432/`.
 
-Another think to keep in mind is that the Compose command line takes in consideration **only** what's inside the `docker-compose.yml`. This seem obvious, but bear with me a little. Imagine that you've a `docker-compose.yml` file containing 2 services: `web` and `db`. You then run `docker-compose up --detach` and start your Containers. So far, so good. Now imagine that you erase the `web` service from the `docker-compose.yml`. Now, when running `docker-compose down`, **only the `db` Container will be stopped**. Compose has no way to remember that it started `web` alongside `db`, so you should keep that in mind.
+Another thing to keep in mind is that the Compose command line takes in consideration **only** what's inside the `docker-compose.yml`. This seem obvious, but bear with me a little. Imagine that you've a `docker-compose.yml` file containing 2 services: `web` and `db`. You then run `docker-compose up --detach` and start your Containers. So far, so good. Now imagine that you erase the `web` service from the `docker-compose.yml`. Now, when running `docker-compose down`, **only the `db` Container will be stopped**. Compose has no way to remember that it started `web` alongside `db`, so you should keep that in mind.
 
 ## Examples?
 
