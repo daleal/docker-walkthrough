@@ -18,8 +18,8 @@ services:
                   # directly from the Compose file
       POSTGRES_HOST_AUTH_METHOD: trust  # Insecure connection, only for local,
                                         # this environmental variable is
-                                        # necessary because we are no changing
-                                        # the defaul postgres password,
+                                        # necessary because we are not changing
+                                        # the default postgres password,
                                         # which is insecure in production
 
     networks:  # Attach the service to one or multiple networks
